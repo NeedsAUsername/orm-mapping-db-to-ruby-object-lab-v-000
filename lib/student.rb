@@ -115,8 +115,11 @@ class Student
             WHERE students.grade = ?
        SQL
 
-       DB[:conn].execute(sql, grade).collect do |row|
-        self.new_from_db(row)
-       end 
+       array = []
+       DB[:conn].execute(sql, grade).each do |row|
+        array << self.new_from_db(row)
+       end
+
+       array 
    end
 end
